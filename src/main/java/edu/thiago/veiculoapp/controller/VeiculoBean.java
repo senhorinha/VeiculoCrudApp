@@ -1,32 +1,55 @@
 package edu.thiago.veiculoapp.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.thiago.veiculoapp.dao.VeiculoDAO;
 import edu.thiago.veiculoapp.model.Marca;
 import edu.thiago.veiculoapp.model.Veiculo;
 
-@ManagedBean
-@SessionScoped
+@ManagedBean(name = "veiculoBean")
 public class VeiculoBean {
 
-	@Autowired
-	VeiculoDAO dao;
+	private VeiculoDAO dao;
+	private ComponentesBean componentesBean;
 
 	private String marca;
 	private String modelo;
 	private int portas;
 	private int ano;
 	private BigDecimal valor;
-	private ComponentesBean componentesBean;
+	private BigDecimal valorInicial;
+	private BigDecimal valorFinal;
+
+	public BigDecimal getValorFinal() {
+		return valorFinal;
+	}
+
+	public void setValorFinal(BigDecimal valorFinal) {
+		this.valorFinal = valorFinal;
+	}
+
+	public BigDecimal getValorInicial() {
+		return valorInicial;
+	}
+
+	public void setValorInicial(BigDecimal valorInicial) {
+		this.valorInicial = valorInicial;
+	}
 
 	public String getModelo() {
 		return modelo;
+	}
+
+	public List<String> getMarcas() {
+		List<String> marcas = new ArrayList<String>();
+		for (Marca m : Marca.values()) {
+			marcas.add(m.toString());
+		}
+		return marcas;
 	}
 
 	public void setModelo(String modelo) {
@@ -47,6 +70,22 @@ public class VeiculoBean {
 
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
 	}
 
 	public ComponentesBean getComponentesBean() {
@@ -74,6 +113,16 @@ public class VeiculoBean {
 
 	public void editar() {
 		dao.editar(getVeiculo());
+	}
+
+	public void salvar() {
+		System.out.printf("Marca: %s\n", marca);
+		System.out.printf("Modelo: %s\n", modelo);
+
+	}
+
+	public int portaConverter(String porta) {
+		return Integer.valueOf(porta);
 	}
 
 }

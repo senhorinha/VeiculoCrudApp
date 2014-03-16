@@ -1,16 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"   
-      xmlns:h="http://java.sun.com/jsf/html"
-      >
- 
-    <h:body>
- 
-    	<h1>JSF 2.0 + Spring Example</h1>
- 
- 		#{userBean.printMsgFromSpring()}
- 		
-    </h:body>
- 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Consulta de Veículos</title>
+
+</h:head>
+
+<h:body>
+
+	<p:panel id="pnl" header="Consulta:" style="margin-bottom:10px;">
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputLabel for="marca" value="Marca" />
+				<p:selectOneMenu value="#{veiculoBean.marca}">
+					<f:selectItem itemLabel="Selecione a marca"
+						noSelectionOption="true" />
+					<f:selectItems value="#{veiculoBean.marcas}" />
+				</p:selectOneMenu>
+				<h:outputLabel for="modelo" value="Modelo" />
+				<p:inputText id="modelo" value="#{veiculoBean.modelo}"
+					label="modelo" style="width:175px;" />
+			</h:panelGrid>
+			<h:panelGrid columns="4">
+				<h:outputLabel for="anoInicial" value="Ano" />
+				<p:inputMask id="anoInicial" mask="9999" maxlength="4"
+					placeHolder="1992" />
+				<h:outputLabel for="anoFinal" value="até" />
+
+				<p:inputMask id="anoFinal" mask="9999" maxlength="4"
+					placeHolder="2014" />
+				<h:outputLabel for="valorInicial" value="Valor" />
+				<p:inputText id="valorInicial" value="#{veiculoBean.valorInicial}"
+					label="Valor Final" />
+				<h:outputLabel for="valorFinal" value="até" />
+				<p:inputText id="valorFinal" value="#{veiculoBean.valorFinal}"
+					label="Valor Final" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+
+				<h:outputLabel for="portas" value="Portas" />
+				<p:selectOneMenu id="porta" value="#{veiculoBean.portas}">
+					<f:selectItem itemLabel="Todos" noSelectionOption="true" />
+					<f:selectItem itemLabel="2" itemValue="2" />
+					<f:selectItem itemLabel="4" itemValue="4" />
+				</p:selectOneMenu>
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="5" style="margin-bottom:10px" cellpadding="5">
+				<h:outputText value="Opcionais" />
+
+				<p:selectBooleanCheckbox
+					value="#{veiculoBean.componentesBean.airbag}" />
+				<h:outputText value="Air bag" />
+
+				<p:selectBooleanCheckbox value="#{veiculoBean.componentesBean.abs}">
+				</p:selectBooleanCheckbox>
+				<h:outputText value="Freios ABS" />
+
+				<h:outputText value="" />
+
+				<p:selectBooleanCheckbox
+					value="#{veiculoBean.componentesBean.arCondicionado}" />
+				<h:outputText value="Ar condicionado" />
+
+				<p:selectBooleanCheckbox
+					value="#{veiculoBean.componentesBean.travaEletrica}">
+				</p:selectBooleanCheckbox>
+				<h:outputText value="Travas elétricas" />
+
+				<h:outputText value="" />
+
+				<p:selectBooleanCheckbox
+					value="#{veiculoBean.componentesBean.direcaoHidraulica}" />
+				<h:outputText value="Direção Hidráulica" />
+
+				<p:selectBooleanCheckbox
+					value="#{veiculoBean.componentesBean.vidrosEletricos}">
+				</p:selectBooleanCheckbox>
+				<h:outputText value="Vidros elétricos" />
+
+			</h:panelGrid>
+
+			<p:commandButton value="Consultar" update="display"
+				oncomplete="PF('dlg').show()" />
+
+
+			<p:dialog header="Valores:" modal="true" showEffect="fade"
+				hideEffect="fade" widgetVar="dlg">
+				<h:panelGrid columns="1" id="display">
+					<h:outputText value="Marca: #{veiculoBean.marca}" />
+					<h:outputText value="Modelo: #{veiculoBean.modelo}" />
+					<h:outputText value="Valor Inicial: #{veiculoBean.valorInicial}" />
+					<h:outputText
+						value="Air bag: #{veiculoBean.componentesBean.airbag}" />
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+	</p:panel>
+
+
+
+</h:body>
 </html>
