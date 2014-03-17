@@ -34,8 +34,18 @@ public class VeiculoDAO {
 		}
 	}
 
-	// TODO: Finalizar método
 	public void editar(Veiculo v) {
+		Session session = HibernateUtils.getSessionFactory().openSession();
+
+		try {
+			session = HibernateUtils.getSessionFactory().openSession();
+			session.beginTransaction();
+			session.saveOrUpdate(v);
+			session.getTransaction().commit();
+		} finally {
+			session.close();
+
+		}
 	}
 
 }
