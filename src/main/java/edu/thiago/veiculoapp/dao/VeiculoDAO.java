@@ -1,33 +1,41 @@
 package edu.thiago.veiculoapp.dao;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import edu.thiago.veiculoapp.model.Veiculo;
 
 public class VeiculoDAO {
 
-	private SessionFactory sessionFactory;
-
-	private Session getCurruntSession() {
-		return sessionFactory.getCurrentSession();
-	}
-
 	public void criar(Veiculo v) {
-		getCurruntSession().save(v);
+		Session session = null;
+		try {
+			session = HibernateUtils.getSessionFactory().openSession();
+			session.beginTransaction();
+			session.save(v);
+			session.getTransaction().commit();
+		} finally {
+			session.close();
+		}
+
 	}
 
 	public void remover(Veiculo v) {
-		getCurruntSession().delete(v);
+		Session session = null;
 
+		try {
+			session = HibernateUtils.getSessionFactory().openSession();
+			session.beginTransaction();
+			session.delete(v);
+			session.getTransaction().commit();
+
+		} finally {
+			session.close();
+
+		}
 	}
 
 	// TODO: Finalizar método
 	public void editar(Veiculo v) {
 	}
 
-	public Veiculo getVeiculo(Long id) {
-		Veiculo veiculo = (Veiculo) getCurruntSession().get(Veiculo.class, id);
-		return veiculo;
-	}
 }
