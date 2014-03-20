@@ -1,0 +1,83 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form prependId="false">
+		<p:messages id="msgs" />
+
+		<h:panelGrid id="infosVeiculo" columns="2">
+			<h:outputLabel for="marca" value="Marca" />
+
+			<p:selectOneMenu id="marca"
+				value="#{veiculoController.veiculo.marca}" required="true"
+				requiredMessage="Selecione uma marca.">
+				<f:selectItem itemLabel="Selecione a marca" noSelectionOption="true" />
+				<f:selectItems value="#{veiculoController.listarMarcasDisponiveis}" />
+			</p:selectOneMenu>
+
+			<h:outputLabel for="modelo" value="Modelo" />
+			<p:inputText id="modelo" value="#{veiculoController.veiculo.modelo}"
+				label="modelo" style="width:175px;" required="true"
+				requiredMessage="Informe o modelo do veiculo" />
+
+			<h:outputLabel for="ano" value="Ano" />
+			<p:inputMask id="ano" value="#{veiculoController.veiculo.ano}"
+				mask="9999" placeholder="2014" style="width:50px;" maxlength="4"
+				required="true" requiredMessage="Informe o ano" />
+
+			<h:outputLabel for="valor" value="Valor:" />
+			<p:inputMask id="valor" placeholder="200.000,00" style="width:175px;"
+				required="true" requiredMessage="Informe o valor (preço)"
+				value="#{veiculoController.veiculo.valorAux}" />
+
+			<h:outputLabel for="portas" value="Portas:" />
+
+			<p:selectOneMenu id="portas"
+				value="#{veiculoController.veiculo.numeroDePortas}" rendered="true"
+				requiredMessage="Selecione o número de portas">
+				<f:selectItem itemLabel="Todos" noSelectionOption="true" />
+				<f:selectItem itemLabel="2" itemValue="2" />
+				<f:selectItem itemLabel="4" itemValue="4" />
+			</p:selectOneMenu>
+
+			<h:outputText value="Opcionais" />
+
+			<h:panelGrid columns="5" style="margin-bottom:10px" cellpadding="5">
+
+				<p:selectBooleanCheckbox value="#{veiculoController.veiculo.airbag}" />
+				<h:outputText value="Air bag" />
+
+				<p:selectBooleanCheckbox value="#{veiculoController.veiculo.abs}">
+				</p:selectBooleanCheckbox>
+				<h:outputText value="Freios ABS" />
+
+				<h:outputText value="" />
+
+				<p:selectBooleanCheckbox
+					value="#{veiculoController.veiculo.arCondicionado}" />
+				<h:outputText value="Ar condicionado" />
+
+				<p:selectBooleanCheckbox
+					value="#{veiculoController.veiculo.travaEletrica}">
+				</p:selectBooleanCheckbox>
+				<h:outputText value="Travas elétricas" />
+
+				<h:outputText value="" />
+
+				<p:selectBooleanCheckbox
+					value="#{veiculoController.veiculo.direcaoHidraulica}" />
+				<h:outputText value="Direção Hidráulica" />
+
+				<p:selectBooleanCheckbox
+					value="#{veiculoController.veiculo.vidrosEletricos}" />
+				<h:outputText value="Vidros elétricos" />
+			</h:panelGrid>
+
+			<p:commandButton id="submit" value="Cadastrar" update="msgs"
+				process="@form" actionListener="#{veiculoController.adicionar}" />
+		</h:panelGrid>
+	</h:form>
+</ui:composition>

@@ -6,7 +6,7 @@
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
 	id="WebApp_ID" version="2.5">
  
-  <display-name>JavaServerFaces</display-name>
+  <display-name>VeiculoCrudApp</display-name>
  
   <!-- Add Support for Spring -->
   <listener>
@@ -25,10 +25,12 @@
     <param-name>javax.faces.PROJECT_STAGE</param-name>
     <param-value>Development</param-value>
   </context-param>
+  
+ 
  
   <!-- Welcome page -->
   <welcome-file-list>
-    <welcome-file>default.jsf</welcome-file>
+    <welcome-file>index.jsf</welcome-file>
   </welcome-file-list>
  
   <!-- JSF Mapping -->
@@ -45,5 +47,11 @@
     <servlet-name>facesServlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
+  
+  <!-- Configuração de tema para o primefaces -->
+  <context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>hot-sneaks</param-value>
+	</context-param>
  
 </web-app>

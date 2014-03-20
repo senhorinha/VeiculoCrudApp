@@ -1,0 +1,102 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form id="consultaForm">
+		<h:panelGrid id="consultaPanel" columns="2">
+			<h:outputLabel for="marca" value="Marca" />
+			<p:selectOneMenu id="marca" value="#{consulta.marca}">
+				<f:selectItem itemLabel="Selecione a marca" noSelectionOption="true" />
+				<f:selectItems value="#{consulta.marcas}" />
+			</p:selectOneMenu>
+			<h:outputLabel for="modelo" value="Modelo" />
+			<p:inputText id="modelo" value="#{consulta.modelo}" label="modelo"
+				style="width:175px;" />
+			<h:outputLabel for="anoInicial" value="Ano" />
+			<h:panelGrid columns="3">
+				<p:inputMask id="anoInicial" maxlength="4" placeholder="2000"
+					style="width:50px;" />
+				<h:outputLabel for="anoFinal" value="até" />
+				<p:inputMask id="anoFinal" maxlength="4" placeholder="2014"
+					style="width:50px;" />
+			</h:panelGrid>
+			<h:outputLabel for="valorInicial" value="Valor" />
+			<h:panelGrid columns="3">
+				<p:inputMask id="valorInicial" placeholder="200.000,00"
+					style="width:175px;" value="#{consulta.valorInicialAux}" />
+				<h:outputLabel for="valorFinal" value="até" />
+				<p:inputMask id="valorFinal" placeholder="200.000,00"
+					style="width:175px;" value="#{consulta.valorFinalAux}" />
+			</h:panelGrid>
+
+			<h:outputLabel for="portas" value="Portas" />
+			<p:selectOneMenu id="porta" value="#{consulta.numeroDePortas}">
+				<f:selectItem itemLabel="Todos" noSelectionOption="true" />
+				<f:selectItem itemLabel="2" itemValue="2" />
+				<f:selectItem itemLabel="4" itemValue="4" />
+			</p:selectOneMenu>
+
+			<h:outputText value="Opcionais" />
+
+			<h:panelGrid id="opcionais" columns="5" style="margin-bottom:10px" cellpadding="5">
+
+				<p:selectBooleanCheckbox id="airbag" value="#{consulta.airbag}" />
+				<h:outputText value="Air bag" />
+
+				<p:selectBooleanCheckbox id="abs" value="#{consulta.abs}">
+				</p:selectBooleanCheckbox>
+				<h:outputText value="Freios ABS" />
+
+				<h:outputText value="" />
+
+				<p:selectBooleanCheckbox id="arCondicionado"
+					value="#{consulta.arCondicionado}" />
+				<h:outputText value="Ar condicionado" />
+
+				<p:selectBooleanCheckbox id="travaEletrica"
+					value="#{consulta.travaEletrica}">
+				</p:selectBooleanCheckbox>
+				<h:outputText value="Travas elétricas" />
+
+				<h:outputText value="" />
+
+				<p:selectBooleanCheckbox id="direcaoHidraulica"
+					value="#{consulta.direcaoHidraulica}" />
+				<h:outputText value="Direção Hidráulica" />
+
+				<p:selectBooleanCheckbox id="vidrosEletricos"
+					value="#{consulta.vidrosEletricos}">
+				</p:selectBooleanCheckbox>
+				<h:outputText value="Vidros elétricos" />
+			</h:panelGrid>
+			<p:commandButton id="submit" process="@this" value="Consultar"
+				actionListener="#{consulta.consultar}"/>
+		</h:panelGrid>
+	</h:form>
+	<br></br>
+	<p:dataTable id="tabelaDeVeiculos" var="veiculo"
+		value="#{consulta.veiculos}" sortMode="multiple" rows="25"
+		paginator="true">
+		<f:facet name="header">  
+		          Veículos 	
+		        </f:facet>
+		<p:column sortBy="marca" headerText="Marca">
+			<h:outputText value="#{veiculo.marca}" />
+		</p:column>
+		<p:column sortBy="modelo" headerText="Modelo">
+			<h:outputText value="#{veiculo.modelo}" />
+		</p:column>
+		<p:column sortBy="ano" headerText="Ano">
+			<h:outputText value="#{veiculo.ano}" />
+		</p:column>
+		<p:column sortBy="valor" headerText="Valor (R$)">
+			<h:outputText value="#{veiculo.valor}" />
+		</p:column>
+		<p:column sortBy="numeroDePortas" headerText="Num.Portas">
+			<h:outputText value="#{veiculo.numeroDePortas}" />
+		</p:column>
+	</p:dataTable>
+</ui:composition>
