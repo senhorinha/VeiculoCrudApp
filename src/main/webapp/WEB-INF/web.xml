@@ -26,12 +26,34 @@
     <param-value>Development</param-value>
   </context-param>
   
+      <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+                /WEB-INF/classes/config/spring/beandefinition/jsfspring-sec-bean-config.xml
+                /WEB-INF/classes/config/spring/security/jsfspring-sec-security-config.xml
+        </param-value>
+    </context-param>
+    
+    <!-- Enable Spring Filter, Spring Security works on the concept of Filters -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>
+            org.springframework.web.filter.DelegatingFilterProxy
+        </filter-class>
+    </filter>
+     
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- Enable Spring Filter End -->
+  
  
  
   <!-- Welcome page -->
   <welcome-file-list>
-    <welcome-file>index.jsf</welcome-file>
-  </welcome-file-list>
+        <welcome-file>/pages/index/index.jsp</welcome-file>
+    </welcome-file-list>
  
   <!-- JSF Mapping -->
   <servlet>

@@ -17,6 +17,8 @@ public class ConsultaBean {
 	private double valorFinal;
 	private int numeroDePortas;
 
+	private boolean opcionais;
+
 	private boolean arCondicionado;
 	private boolean direcaoHidraulica;
 	private boolean vidrosEletricos;
@@ -30,8 +32,9 @@ public class ConsultaBean {
 	public List<Veiculo> consultar() {
 		dao = new VeiculoDAO();
 		return dao.procurarVeiculosCom(marca, modelo, anoInicial, anoFinal,
-				valorInicial, valorFinal, numeroDePortas, arCondicionado,
-				direcaoHidraulica, vidrosEletricos, travaEletrica, airbag, abs);
+				valorInicial, valorFinal, numeroDePortas, opcionais,
+				arCondicionado, direcaoHidraulica, vidrosEletricos,
+				travaEletrica, airbag, abs);
 	}
 
 	public String getMarca() {
@@ -90,6 +93,14 @@ public class ConsultaBean {
 
 	public void setNumeroDePortas(int numeroDePortas) {
 		this.numeroDePortas = numeroDePortas;
+	}
+
+	public boolean isOpcionais() {
+		return opcionais;
+	}
+
+	public void setOpcionais(boolean opcionais) {
+		this.opcionais = opcionais;
 	}
 
 	public boolean isArCondicionado() {

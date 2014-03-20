@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Gerenciador de Veículos</title>
+</h:head>
+<h:body>
+	<p:layout fullPage="true">
+
+
+		<!-- LATERAL -->
+		<p:layoutUnit position="west" width="200" header="Ações"
+			resizable="true" closable="false" collapsible="false">
+			<h:form>
+				<h:panelGrid columns="1">
+								            <p:commandLink value="Consultar"
+						actionListener="#{veiculoController.prepararConsulta}"
+						update=":consultaForm:consultaPanel"
+						oncomplete="dialogConVeiculos.show()" />
+
+				</h:panelGrid>
+			</h:form>
+		</p:layoutUnit>
+
+		<!--  TABELA -->
+		<p:layoutUnit id="layoutUnit" position="center">
+			<h1 style="text-align: center">Gerenciador de Veículos</h1>
+			<br />
+			<h:form id="formTabela" prependId="false">
+				<p:dataTable id="tabela" var="veiculo"
+					value="#{veiculoController.listarVeiculos()}" sortMode="multiple"
+					rows="25" paginator="true">
+					<f:facet name="header">  
+		          Veículos
+					</f:facet>
+					<p:column sortBy="marca" headerText="Marca">
+						<h:outputText value="#{veiculo.marca}" />
+					</p:column>
+					<p:column sortBy="modelo" headerText="Modelo">
+						<h:outputText value="#{veiculo.modelo}" />
+					</p:column>
+					<p:column sortBy="ano" headerText="Ano">
+						<h:outputText value="#{veiculo.ano}" />
+					</p:column>
+					<p:column sortBy="numeroDePortas" headerText="Num.Portas">
+						<h:outputText value="#{veiculo.numeroDePortas}" />
+					</p:column>
+					<p:column headerText="Opcionais">
+						<ui:repeat value="#{veiculo.opcionais}" var="opcional">
+							<h:outputLabel value="#{opcional}" />
+							<br />
+						</ui:repeat>
+					</p:column>
+					<p:column sortBy="valor" headerText="Valor (R$)">
+						<h:outputText value="#{veiculo.valor}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:layoutUnit>
+
+	</p:layout>
+
+
+	<!--  Consulta -->
+	<p:dialog header="Consulta de Veículos" widgetVar="dialogConVeiculos"
+		resizable="false" modal="true" showEffect="slide" hideEffect="slide"
+		width="600">
+		<h:form prependId="false" id="consultaForm">
+			<p:messages id="msgsConsulta" />
+			<h:panelGrid id="consultaPanel" columns="2">
+				<h:outputLabel for="marcaConsulta" value="Marca" />
+				<p:selectOneMenu id="marcaConsulta" required="false"
+					value="#{veiculoController.consulta.marca}">
+					<f:selectItem itemLabel="Selecione a marca"
+						noSelectionOption="true" />
+					<f:selectItems
+						value="#{veiculoController.listarMarcasDisponiveis()}" />
+				</p:selectOneMenu>
+				<h:outputLabel for="modeloConsulta" value="Modelo" />
+				<p:inputText id="modeloConsulta" required="false"
+					value="#{veiculoController.consulta.modelo}" label="modelo"
+					style="width:175px;" />
+				<h:outputLabel for="anoInicial" value="Ano" />
+				<h:panelGrid columns="3">
+					<p:inputMask id="anoInicial" required="false"
+						value="#{veiculoController.consulta.anoInicial}" maxlength="4"
+						style="width:50px;" />
+					<h:outputLabel for="anoFinal" value="até" />
+					<p:inputMask id="anoFinal" required="false"
+						value="#{veiculoController.consulta.anoFinal}" maxlength="4"
+						style="width:50px;" />
+				</h:panelGrid>
+				<h:outputLabel for="valorInicial" value="Valor" />
+				<h:panelGrid columns="3">
+					<p:inputMask id="valorInicial" required="false"
+						style="width:175px;"
+						value="#{veiculoController.consulta.valorInicial}" />
+					<h:outputLabel for="valorFinal" value="até" />
+					<p:inputMask id="valorFinal" required="false" style="width:175px;"
+						value="#{veiculoController.consulta.valorFinal}" />
+				</h:panelGrid>
+
+				<h:outputLabel for="portaConsulta" value="Portas" />
+				<p:selectOneMenu id="portaConsulta"
+					value="#{veiculoController.consulta.numeroDePortas}">
+					<f:selectItem itemLabel="Todos" noSelectionOption="true" />
+					<f:selectItem itemLabel="2" itemValue="2" />
+					<f:selectItem itemLabel="4" itemValue="4" />
+				</p:selectOneMenu>
+
+				<h:outputText value="Opcionais" />
+
+				<h:panelGrid id="opcionaisConsulta" columns="5"
+					style="margin-bottom:10px" cellpadding="5">
+
+					<p:selectBooleanCheckbox id="airbagConsulta"
+						value="#{veiculoController.consulta.airbag}" />
+					<h:outputText value="Air bag" />
+
+					<p:selectBooleanCheckbox id="absConsulta"
+						value="#{veiculoController.consulta.abs}">
+					</p:selectBooleanCheckbox>
+					<h:outputText value="Freios ABS" />
+
+					<p:selectBooleanCheckbox id="habilitadorDeOpcionais"
+						value="#{veiculoController.consulta.opcionais}" />
+
+					<p:selectBooleanCheckbox id="arCondicionadoConsulta"
+						value="#{veiculoController.consulta.arCondicionado}" />
+					<h:outputText value="Ar condicionado" />
+
+					<p:selectBooleanCheckbox id="travaEletricaConsulta"
+						value="#{veiculoController.consulta.travaEletrica}">
+					</p:selectBooleanCheckbox>
+					<h:outputText value="Travas elétricas" />
+
+					<h:outputText value="" />
+
+					<p:selectBooleanCheckbox id="direcaoHidraulicaConsulta"
+						required="false"
+						value="#{veiculoController.consulta.direcaoHidraulica}" />
+					<h:outputText value="Direção Hidráulica" />
+
+					<p:selectBooleanCheckbox id="vidrosEletricosConsulta"
+						value="#{veiculoController.consulta.vidrosEletricos}">
+					</p:selectBooleanCheckbox>
+					<h:outputText value="Vidros elétricos" />
+				</h:panelGrid>
+				<p:commandButton id="submitConsulta" process="@form"
+					value="Consultar" oncomplete="dialogConVeiculos.hide();"
+					update="msgsConsulta,:formTabela:tabela"
+					actionListener="#{veiculoController.consultar}" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+
+</h:body>
+</html>

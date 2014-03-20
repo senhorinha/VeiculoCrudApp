@@ -57,9 +57,10 @@ public class VeiculoDAO implements Serializable {
 	@SuppressWarnings("deprecation")
 	public List<Veiculo> procurarVeiculosCom(String marca, String modelo,
 			int anoInicial, int anoFinal, double valorInicial,
-			double valorFinal, int numeroDePortas, boolean arCondicionado,
-			boolean direcaoHidraulica, boolean vidrosEletricos,
-			boolean travaEletrica, boolean airbag, boolean abs) {
+			double valorFinal, int numeroDePortas, boolean opcionais,
+			boolean arCondicionado, boolean direcaoHidraulica,
+			boolean vidrosEletricos, boolean travaEletrica, boolean airbag,
+			boolean abs) {
 
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		try {
@@ -102,13 +103,24 @@ public class VeiculoDAO implements Serializable {
 						valorInicial), new BigDecimal(valorFinal)));
 			}
 
-			criteria.add(Restrictions
-					.eq("direcaoHidraulica", direcaoHidraulica));
-			criteria.add(Restrictions.eq("arCondicionado", arCondicionado));
-			criteria.add(Restrictions.eq("vidrosEletricos", vidrosEletricos));
-			criteria.add(Restrictions.eq("travaEletrica", travaEletrica));
-			criteria.add(Restrictions.eq("airbag", airbag));
-			criteria.add(Restrictions.eq("abs", abs));
+			if (opcionais) {
+				criteria.add(Restrictions.eq("direcaoHidraulica",
+						direcaoHidraulica));
+				criteria.add(Restrictions.eq("arCondicionado", arCondicionado));
+				criteria.add(Restrictions
+						.eq("vidrosEletricos", vidrosEletricos));
+				criteria.add(Restrictions.eq("travaEletrica", travaEletrica));
+				criteria.add(Restrictions.eq("airbag", airbag));
+				criteria.add(Restrictions.eq("abs", abs));
+			} else {
+				criteria.add(Restrictions.isNotNull("direcaoHidraulica"));
+				criteria.add(Restrictions.isNotNull("arCondicionado"));
+				criteria.add(Restrictions.isNotNull("vidrosEletricos"));
+				criteria.add(Restrictions.isNotNull("travaEletrica"));
+				criteria.add(Restrictions.isNotNull("airbag"));
+				criteria.add(Restrictions.isNotNull("abs"));
+			}
+
 			List<Veiculo> resultado = criteria.list();
 			return resultado;
 		} finally {
