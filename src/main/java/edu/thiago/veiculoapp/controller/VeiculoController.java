@@ -85,7 +85,6 @@ public class VeiculoController {
 	public void consultar() {
 		atualizarLista = true;
 		consultaRealizada = true;
-		System.out.println("CONSULTANDO!!!");
 		veiculosConsultados = consulta.consultar();
 	}
 

@@ -1,6 +1,5 @@
 package edu.thiago.veiculoapp.dao;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import org.hibernate.criterion.Restrictions;
 
 import edu.thiago.veiculoapp.model.Veiculo;
 
-public class VeiculoDAO implements Serializable {
+public class VeiculoDAO {
 
 	public void criar(Veiculo v) {
 		Session session = null;
