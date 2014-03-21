@@ -42,7 +42,6 @@ public class ConsultaBean {
 	}
 
 	public void setMarca(String marca) {
-		System.out.printf("setMarca(%s)", marca);
 		this.marca = marca;
 	}
 
@@ -51,7 +50,6 @@ public class ConsultaBean {
 	}
 
 	public void setModelo(String modelo) {
-		System.out.printf("setModelo(%s)", modelo);
 		this.modelo = modelo;
 	}
 

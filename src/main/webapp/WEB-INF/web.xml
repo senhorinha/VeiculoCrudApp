@@ -29,8 +29,8 @@
       <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-                /WEB-INF/classes/config/spring/beandefinition/jsfspring-sec-bean-config.xml
-                /WEB-INF/classes/config/spring/security/jsfspring-sec-security-config.xml
+                /WEB-INF/classes/config/spring/bean/navegador-bean.xml
+                /WEB-INF/classes/config/spring/security/spring-security.xml
         </param-value>
     </context-param>
     
@@ -52,7 +52,7 @@
  
   <!-- Welcome page -->
   <welcome-file-list>
-        <welcome-file>/pages/index/index.jsp</welcome-file>
+        <welcome-file>/pages/home/home.xhtml</welcome-file>
     </welcome-file-list>
  
   <!-- JSF Mapping -->

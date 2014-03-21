@@ -16,9 +16,9 @@
 		<display-name>pages/home/home.xhtml</display-name>
 		<from-view-id>/pages/home/home.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{navigator.navigateTo}</from-action>
-			<from-outcome>Secured</from-outcome>
-			<to-view-id>/pages/secure/secured.xhtml</to-view-id>
+			<from-action>#{navegador.navegarParaPaginaAdmin}</from-action>
+			<from-outcome>indexAdmin</from-outcome>
+			<to-view-id>/pages/admin/indexAdmin.xhtml</to-view-id>
 			<redirect></redirect>
 		</navigation-case>
 	</navigation-rule>
@@ -26,9 +26,9 @@
 		<display-name>pages/home/home.xhtml</display-name>
 		<from-view-id>/pages/home/home.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{navigator.navigateTo}</from-action>
-			<from-outcome>UnSecured</from-outcome>
-			<to-view-id>/pages/unsecure/unsecured.xhtml</to-view-id>
+			<from-action>#{navegador.navegarParaPaginaNormal}</from-action>
+			<from-outcome>indexAll</from-outcome>
+			<to-view-id>/pages/all/indexAll.xhtml</to-view-id>
 			<redirect></redirect>
 		</navigation-case>
 	</navigation-rule>

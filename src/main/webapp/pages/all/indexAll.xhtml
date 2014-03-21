@@ -33,7 +33,7 @@
 			<h:form id="formTabela" prependId="false">
 				<p:dataTable id="tabela" var="veiculo"
 					value="#{veiculoController.listarVeiculos()}" sortMode="multiple"
-					rows="25" paginator="true">
+					rows="4" paginator="true">
 					<f:facet name="header">  
 		          Veículos
 					</f:facet>
@@ -46,7 +46,7 @@
 					<p:column sortBy="ano" headerText="Ano">
 						<h:outputText value="#{veiculo.ano}" />
 					</p:column>
-					<p:column sortBy="numeroDePortas" headerText="Num.Portas">
+					<p:column sortBy="numeroDePortas" headerText="Portas">
 						<h:outputText value="#{veiculo.numeroDePortas}" />
 					</p:column>
 					<p:column headerText="Opcionais">
@@ -86,11 +86,11 @@
 					style="width:175px;" />
 				<h:outputLabel for="anoInicial" value="Ano" />
 				<h:panelGrid columns="3">
-					<p:inputMask id="anoInicial" required="false"
+					<p:inputMask id="anoInicial" required="false" placeholder="1992"
 						value="#{veiculoController.consulta.anoInicial}" maxlength="4"
 						style="width:50px;" />
 					<h:outputLabel for="anoFinal" value="até" />
-					<p:inputMask id="anoFinal" required="false"
+					<p:inputMask id="anoFinal" required="false" placeholder="2014"
 						value="#{veiculoController.consulta.anoFinal}" maxlength="4"
 						style="width:50px;" />
 				</h:panelGrid>
@@ -112,7 +112,11 @@
 					<f:selectItem itemLabel="4" itemValue="4" />
 				</p:selectOneMenu>
 
-				<h:outputText value="Opcionais" />
+				<h:panelGrid columns="1" style="text-align:center;">
+					<h:outputText value="Opcionais" />
+					<p:selectBooleanCheckbox id="habilitador"
+						value="#{veiculoController.consulta.opcionais}" />
+				</h:panelGrid>
 
 				<h:panelGrid id="opcionaisConsulta" columns="5"
 					style="margin-bottom:10px" cellpadding="5">
@@ -126,8 +130,7 @@
 					</p:selectBooleanCheckbox>
 					<h:outputText value="Freios ABS" />
 
-					<p:selectBooleanCheckbox id="habilitadorDeOpcionais"
-						value="#{veiculoController.consulta.opcionais}" />
+					<h:outputText value="" />
 
 					<p:selectBooleanCheckbox id="arCondicionadoConsulta"
 						value="#{veiculoController.consulta.arCondicionado}" />

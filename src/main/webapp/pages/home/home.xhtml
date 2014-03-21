@@ -3,19 +3,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 </h:head>
 <h:body>
+
 	<h:form id="homePageFormId">
-		<h:outputLabel
-			value="Select your resource, depending on selection you may be asked to login"></h:outputLabel>
-		<br></br>
-		<h:inputText name="option" value="#{navigator.pageToNavigate}"
-			id="optionId" required="True"
-			requiredMessage="Please Enter page to navigate, valid values are ToSecure and ToUnSecure"></h:inputText>
-		<h:commandButton value="Navigate" action="#{navigator.navigateTo}">
-		</h:commandButton>
+		<h1>Escolha uma opção</h1>
+		<h:panelGrid columns="2">
+			<p:commandButton value="Normal" style="width:200px;"
+				action="#{navegador.navegarParaPaginaNormal}">
+			</p:commandButton>
+			<p:outputLabel
+				value="Acesso apenas a consultas (Não é necessário autenticação)" />
+			<p:commandButton value="Admin" style="width:200px;"
+				action="#{navegador.navegarParaPaginaAdmin}">
+			</p:commandButton>
+			<p:outputLabel
+				value="Acesso a todos os recursos (É necessário autenticação)" />
+		</h:panelGrid>
 	</h:form>
 </h:body>
 </html>
